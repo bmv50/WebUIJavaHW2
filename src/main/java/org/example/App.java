@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Hello world!
@@ -12,8 +13,7 @@ import java.util.List;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws InterruptedException {
         System.setProperty(
                 "webdriver.chrome.driver", "src/main/resources/chromedriver.exe"
         );
@@ -23,6 +23,8 @@ public class App
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://dnev-nik.ru/");
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
         WebElement webLogin = driver.findElement(By.name("login"));
         webLogin.sendKeys("bmv50");
@@ -41,6 +43,8 @@ public class App
 
         WebElement webRecord = driver.findElement(By.name("text"));
         webRecord.sendKeys("Тестовая запись");
+
+        Thread.sleep(3000);
 
         WebElement webSubmitRecord = driver.findElement(By.xpath("//*[@id=\"form54\"]/form/input[4]"));
         webSubmitRecord.click();
